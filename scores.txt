@@ -1,0 +1,4 @@
+Guess the Number:: April: [5]
+Guess the Number:: ed: [8, 13, 15, 16]
+Rock Paper Scissors:: April: ['wins: 2', 'losses: 1', 'ties: 1']
+Rock Paper Scissors:: ed: ['wins: 2', 'losses: 2', 'ties: 3']
