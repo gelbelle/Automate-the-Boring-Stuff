@@ -58,7 +58,7 @@ while True:  # Main program loop
                 num_neighbours += 1  # Bottom right neighbour alive
 
             # Set cell based on Conway's Game of Life Rules
-            if current_cells[x][y] == "#" and (num_neighbours == 2 or num_neighbours == 3):
+            if current_cells[x][y] == "#" and num_neighbours in [2, 3]:
                 next_cells[x][y] = "#"
             elif current_cells[x][y] == " " and num_neighbours == 3:
                 next_cells[x][y] = "#"
