@@ -3,7 +3,7 @@ import os
 
 
 def greet_user(options):
-    print("What would you like to do?")
+    print("\nWhat would you like to do?")
     for i in range(len(options)):
         print(f"{i}: {options[i]}")
 
