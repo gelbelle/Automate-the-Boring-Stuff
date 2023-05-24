@@ -5,75 +5,110 @@ import sys
 def delete_items():
     print("Please enter the name of the list you would like to delete items from: ", end="")
     utils.read_files("lists")
-    list_name = f"lists/{input()}.txt"
+    list_name = input()
+
     print("You list currently has the following items on it: ")
     items = utils.open_file(list_name)
-    for item in items:
-        print(item, end="")
+    utils.print_list(items)
 
     print("Enter the one you would like to delete: ", end="")
-    to_delete = []
+    remove_these = []
     while True:
-        to_delete.append(input())
+        to_delete = input()
+        remove_these.append(to_delete)
         print("Would you like to delete any more items? [y/n]")
         if utils.getAns(input(), ['y', 'n']) == "n":
-            file = open(list_name, "w")
+            file = open(f"lists/{list_name}.txt", "w")
             for item in items:
-                if item.strip("\n") not in to_delete:
+                if item.strip("\n") not in remove_these:
                     file.write(f"{item}")
             file.close()
             break
 
 
+def update_list():
+    view_lists()
+    print("Enter the name of the one you would like to add items to: ")
+    list_name = input()
+    print("Your list already has the following items on it: ")
+    utils.print_list(utils.open_file(list_name))
+    list_items = add_items()
+    utils.save_list(list_name, list_items)
+    print("Your list has been saved")
+
+
 def add_items():
     list_items = []
-    print("Enter the items you would like to add to your list: ")
+    print("\nEnter the items you would like to add to your list: ")
     print("To complete and save your list enter 'q'")
     while True:
         item = input()
         if item == 'q':
-            while True:
-                name = utils.ask_save("Would you like to save your list?")
-                if name:
-                    utils.save_list(name, list_items)
-                    print("Your list has been saved")
-                    return
-                else:
-                    print(
-                        "By not entering a list name you have chosen not to save your list.")
-                    print("Are you sure? [y/n]")
-                    if utils.getAns(input(), ['y', 'n']) == "y":
-                        return
+            return list_items
         else:
             list_items.append(item)
 
 
-def read_list():
-    print("Enter the name of the list you would like to read: ", end="")
+def check_available(list_name):
+    if list_name in utils.read_files(r"lists"):
+        while True:
+            print("I'm sorry, that list name is already taken.")
+            print("Please enter another list name.")
+            print("To go back to the main menu enter '*'")
+            list_name = input()
+
+            if list_name == '*':
+                return
+
+
+def create_list():
+    print("Enter a name for your list: ")
     list_name = input()
-    utils.print_list(f"lists/{list_name}.txt")
+    check_available(list_name)
+    list_items = add_items()
+    print("Would you like to save your list? [y/n]")
+    if utils.getAns(input(), ['y', 'n']) == 'y':
+        utils.save_list(list_name, list_items)
+        print("Your list has been saved")
+        return
+    else:
+        print(
+            "By not entering a list name you have chosen not to save your list.")
+        print("Are you sure? [y/n]")
+        if utils.getAns(input(), ['y', 'n']) == "y":
+            return
+
+
+def open_list():
+    print("Enter the name of the list you would like to read: ", end="")
+    file_name = input()
+    contents = utils.open_file(file_name)
+    utils.print_list(contents)
 
 
 def view_lists():
     print("The lists available are: ")
-    utils.read_files(r"lists")
+    files = utils.read_files(r"lists")
+    utils.print_list(files)
 
 
 def main():
     while True:
         choice = utils.greet_user(
-            ["View lists", "See list", "Add list items", "Delete an item from your list", "Quit"])
+            ["Create list", "View lists", "See list", "Add list items", "Delete list items", "Quit"])
         match choice:
             case '0':
-                view_lists()
+                create_list()
             case '1':
-                read_list()
+                view_lists()
             case '2':
-                add_items()
+                open_list()
             case '3':
-                delete_items()
+                update_list()
             case '4':
-                sys.exit(0)
+                delete_items()
+            case '5':
+                break
 
 
 if __name__ == "__main__":
