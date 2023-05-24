@@ -37,17 +37,16 @@ def save_game(game, score):
 
 def open_file(file_name):
     try:
-        file = open(file_name, "r+")
+        file = open(f"lists/{file_name}.txt", "r+")
         contents = file.readlines()
         return contents
     except FileNotFoundError as err:
         print(f"Something has gone wrong: {err}")
 
 
-def print_list(name):
-    items = open_file(name)
+def print_list(items):
     for item in items:
-        print(item, end="")
+        print(item.strip())
 
 
 def save_list(name, items):
@@ -85,7 +84,9 @@ def playAgain(game, score):
 
 
 def read_files(dir_name):
+    files = []
     for entry in os.scandir(dir_name):
         if entry.is_file():
             idx = entry.name.index(".")
-            print(entry.name[:idx])
+            files.append(entry.name[:idx])
+    return files
