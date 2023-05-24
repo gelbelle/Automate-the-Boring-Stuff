@@ -1,4 +1,5 @@
 import customUtils as utils
+import sys
 
 
 def delete_items():
@@ -92,22 +93,11 @@ def view_lists():
 
 
 def main():
+    print("\nWhat would you like to do?")
     while True:
-        choice = utils.greet_user(
-            ["Create list", "View lists", "See list", "Add list items", "Delete list items", "Quit"])
-        match choice:
-            case '0':
-                create_list()
-            case '1':
-                view_lists()
-            case '2':
-                open_list()
-            case '3':
-                update_list()
-            case '4':
-                delete_items()
-            case '5':
-                break
+        utils.create_options(
+            {"Create list": create_list, "View lists": view_lists, "See list": open_list,
+             "Add list items": update_list, "Delete list items": delete_items, "Quit": sys.exit})
 
 
 if __name__ == "__main__":
