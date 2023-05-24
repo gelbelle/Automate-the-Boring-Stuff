@@ -2,18 +2,15 @@ import sys
 import os
 
 
-def create_options(options):
-    idx = 0
-    choices = []
-    for key in options.keys():
-        print(f"{idx}: {key}")
-        choices.append(key)
-        idx += 1
+def create_options(msg, options) -> int:
+    print(msg)
+    # print("\n")  # For easier reading
+    for i in range(len(options)):
+        print(f"{i}: {options[i].strip()}")
 
     ans = input()
     # List from range https://www.geeksforgeeks.org/range-to-a-list-in-python/
-    choice = int(getAns(ans, str([*range(len(options))])))
-    options[choices[choice]]()
+    return int(getAns(ans, str([*range(len(options))])))
 
 
 def getAns(ans, options):
