@@ -2,14 +2,18 @@ import sys
 import os
 
 
-def greet_user(options):
-    print("\nWhat would you like to do?")
-    for i in range(len(options)):
-        print(f"{i}: {options[i]}")
+def create_options(options):
+    idx = 0
+    choices = []
+    for key in options.keys():
+        print(f"{idx}: {key}")
+        choices.append(key)
+        idx += 1
 
     ans = input()
     # List from range https://www.geeksforgeeks.org/range-to-a-list-in-python/
-    return getAns(ans, str([*range(len(options))]))
+    choice = int(getAns(ans, str([*range(len(options))])))
+    options[choices[choice]]()
 
 
 def getAns(ans, options):
