@@ -1,5 +1,4 @@
 import customUtils as utils
-import sys
 
 
 def delete_items():
