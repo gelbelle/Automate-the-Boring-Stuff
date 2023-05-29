@@ -1,5 +1,21 @@
 import customUtils as utils
 import sys
+import os
+
+
+def delete_list():
+    files = view_lists()
+    choice = utils.create_options(
+        "\nChoose the list you would like to delete: ", files)
+    print("Your list  has the following items on it: ")
+    utils.print_list(utils.open_file(files[choice]))
+    print(
+        "Are you sure you want to delete this list? [y/n]\n**You will not be able to recover the list afterwards**")
+    if utils.getAns(input(), ['y', 'n']) == 'y':
+        os.remove(f"lists/{files[choice]}.txt")
+        print(f"The list {files[choice]} has been deleted")
+    else:
+        print(f"The list {files[choice]} has not been deleted")
 
 
 def delete_items():
@@ -95,9 +111,9 @@ def view_lists():
 def main():
     while True:
         choice = utils.create_options("\nWhat would you like to do?",
-                                      ["Create list", "View lists", "See list",
+                                      ["Create list", "Delete list", "View lists", "Read list",
                                        "Add list items", "Delete list items", "Quit"])
-        options = [create_list, view_lists, open_list,
+        options = [create_list, delete_list, view_lists, open_list,
                    update_list, delete_items, sys.exit]
         options[choice]()
 
