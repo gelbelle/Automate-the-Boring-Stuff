@@ -26,11 +26,31 @@ def get_move(player, board):
 def get_next_player(current):
     return "O" if current == "X" else "X"
 
-# TODO count streaks of 3 to determine if line? Maybe just do by hand right now
 
-
+# TODO check if length is three for any of the potential lines
 def check_win(board):
     players = ["X", "O"]
+    plays = set()
+    for [key, val] in board.items():
+        if val != " ":
+            plays.add(key)
+
+    lines = []
+    lines.append((play for play in plays if "top" in play))
+    lines.append((play for play in plays if "mid" in play))
+    lines.append((play for play in plays if "low" in play))
+
+    lines.append((play for play in plays if "L" in play))
+    lines.append((play for play in plays if "M" in play))
+    lines.append((play for play in plays if "R" in play))
+
+    checked = any(len(line) == 3 for line in lines)
+    for line in lines:
+        print(line)
+
+    print(checked)
+
+    # lines = [["top-L", "top-M", "top-R"], ["mid-L", "mid-M", "mid-R"], ["low-L", "low-M", "low-R"], ]
     if board['top-L'] in players and board['top-L'] == ['top-M'] == board['top-R']:
         return True
     if board['mid-L'] in players and board['mid-L'] == board['mid-M'] == board['mid-R']:
