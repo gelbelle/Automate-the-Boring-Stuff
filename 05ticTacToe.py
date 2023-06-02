@@ -29,6 +29,27 @@ def get_next_player(current):
 # TODO count streaks of 3 to determine if line? Maybe just do by hand right now
 
 
+def check_win(board):
+    players = ["X", "O"]
+    if board['top-L'] in players and board['top-L'] == ['top-M'] == board['top-R']:
+        return True
+    if board['mid-L'] in players and board['mid-L'] == board['mid-M'] == board['mid-R']:
+        return True
+    if board['low-L'] in players and board['low-M'] == board['low-L'] == board['low-R']:
+        return True
+    if board['top-L'] in players and board['top-L'] == board['mid-L'] == board['low-L']:
+        return True
+    if board['top-M'] in players and board['top-M'] == board['mid-M'] == board['low-L']:
+        return True
+    if board['top-R'] in players and board['top-R'] == board['mid-R'] == board['low-R']:
+        return True
+    if board['top-L'] in players and board['top-L'] == board['mid-M'] == board['low-R']:
+        return True
+    if board['top-R'] in players and board['top-R'] == board['mid-M'] == board['low-L']:
+        return True
+    return False
+
+
 def check_game_over(board):
     start_pos = 0
     sum = 0
@@ -48,13 +69,15 @@ def play_game(board):
     print(f"\n************\n{current_player} you go first")
     plays = 0
 
-    while plays < 9:
+    while plays <= 9:
         new_board = get_move(current_player, board)
-        check_game_over(new_board)
         print_board(new_board)
+        plays += 1
+        if check_win(new_board):
+            print(f"Congratulations {current_player}! You won!")
+            break
         current_player = get_next_player(current_player)
         print(f"\n**************\nYour turn {current_player}")
-        plays += 1
 
 
 def main():
@@ -66,7 +89,6 @@ def main():
     print_board(board)
 
     play_game(board)
-    print("Game over")
 
 
 if __name__ == "__main__":
