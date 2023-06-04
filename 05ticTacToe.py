@@ -107,7 +107,7 @@ def check_win(board):
     return False
 
 
-def check_game_over(board):
+""" def check_game_over(board):
     start_pos = 0
     sum = 0
     plays = "".join(list(board.values()))
@@ -118,7 +118,7 @@ def check_game_over(board):
             start_pos = pos + 1
             sum += 1
         else:
-            print(sum)
+            print(sum) """
 
 
 def play_game(board):
@@ -151,13 +151,18 @@ def update_score(winner, Xs, Os):
     return [Xs, Os]
 
 
-def main():
-    """Generates a Tic Tac Toe board and prints it to the screen
-    """
+def new_board():
     board = {'top-L': ' ', 'top-M': ' ', 'top-R': ' ',
              'mid-L': ' ', 'mid-M': ' ', 'mid-R': ' ',
              'low-L': ' ', 'low-M': ' ', 'low-R': ' '}
-    print_board(board)
+    return board
+
+
+def main():
+    """Generates a Tic Tac Toe board and prints it to the screen
+    """
+    board = new_board()
+    # print_board(board)
     Xs = {
         "wins": 0,
         "losses": 0,
@@ -170,14 +175,16 @@ def main():
     }
 
     while True:
+        print_board(board)
         winner = play_game(board)
+        print(f"Winner is {winner}")
         new_score = update_score(winner, Xs, Os)
         Xs = new_score[0]
-        Os = new_score[0]
+        Os = new_score[1]
 
         utils.playAgain("Tic Tac Toe", [Xs, Os])
-        # utils.playAgain("Tic Tac Toe", [
-        # Xs["wins"], Xs["losses"], Xs["ties"], Os["wins"], Os["losses"],  Os["ties"]])
+
+        board = new_board()
 
 
 if __name__ == "__main__":
