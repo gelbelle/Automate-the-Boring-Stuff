@@ -29,7 +29,6 @@ def get_next_player(current):
     return "O" if current == "X" else "X"
 
 
-# TODO check if length is three for any of the potential lines
 def check_win(board):
     # players = ["X", "O"]
     plays = set()
@@ -37,88 +36,16 @@ def check_win(board):
         if val != " ":
             plays.add(key)
 
-    """ lines = []
-    top = []
-    mid = []
-    low = []
-    left = []
-    middle = []
-    right = []
-
-    for play in plays:
-        if "top" in play:
-            top.append(play)
-        elif "mid" in play:
-            mid.append(play)
-        elif "low" in play:
-            low.append(play)
-        if "L" in play:
-            left.append(play)
-        if "R" in play:
-            right.append(play)
-        if "M" in play:
-            middle.append(play)
-
-    lines.append([top, mid, low, left, middle, right])
-
-    for line in lines:
-        for row in line:
-            if len(row) == 3:
-                return True """
-
-    """ lines.append((play for play in plays if "top" in play))
-    lines.append((play for play in plays if "mid" in play))
-    lines.append((play for play in plays if "low" in play))
-
-    lines.append((play for play in plays if "L" in play))
-    lines.append((play for play in plays if "M" in play))
-    lines.append((play for play in plays if "R" in play))
-
-    checked = any(line for line in lines if len(line) == 3) """
-    """  for line in lines:
-        print(line)  """
-
-    # print(checked)
-
     lines = [["top-L", "top-M", "top-R"], ["mid-L", "mid-M", "mid-R"], ["low-L", "low-M", "low-R"],
              ["top-L", "mid-L", "low-L"], ["top-M", "mid-M",
                                            "low-M"], ["top-R", "mid-R", "low-R"],
              ["top-L", "mid-M", "low-R"], ["top-R", "mid-M", "low-L"]]
-    """if board['top-L'] in players and board['top-L'] == ['top-M'] == board['top-R']:
-        return True
-    if board['mid-L'] in players and board['mid-L'] == board['mid-M'] == board['mid-R']:
-        return True
-    if board['low-L'] in players and board['low-M'] == board['low-L'] == board['low-R']:
-        return True
-    if board['top-L'] in players and board['top-L'] == board['mid-L'] == board['low-L']:
-        return True
-    if board['top-M'] in players and board['top-M'] == board['mid-M'] == board['low-L']:
-        return True
-    if board['top-R'] in players and board['top-R'] == board['mid-R'] == board['low-R']:
-        return True
-    if board['top-L'] in players and board['top-L'] == board['mid-M'] == board['low-R']:
-        return True
-    if board['top-R'] in players and board['top-R'] == board['mid-M'] == board['low-L']:
-        return True """
 
+    # Implementation loop from https://www.scaler.com/topics/tic-tac-toe-python/
     for line in lines:
         if all(check in plays for check in line):
             return True
     return False
-
-
-""" def check_game_over(board):
-    start_pos = 0
-    sum = 0
-    plays = "".join(list(board.values()))
-    while start_pos < len(board):
-        pos = plays.find("XXX", start_pos)
-
-        if pos != -1:
-            start_pos = pos + 1
-            sum += 1
-        else:
-            print(sum) """
 
 
 def play_game(board):
@@ -162,7 +89,7 @@ def main():
     """Generates a Tic Tac Toe board and prints it to the screen
     """
     board = new_board()
-    # print_board(board)
+
     Xs = {
         "wins": 0,
         "losses": 0,
