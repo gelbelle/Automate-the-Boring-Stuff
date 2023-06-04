@@ -78,9 +78,9 @@ def sortFile(fileName):
 
 
 def save_tic_tac_toe(score):
-    print("X")
+    print("X", end="")
     save_game("Tic Tac Toe", f"X {score[0]}")
-    print("O")
+    print("O", end="")
     save_game("Tic Tac Toe", f"O {score[1]}")
 
 
