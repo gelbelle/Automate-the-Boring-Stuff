@@ -77,10 +77,20 @@ def sortFile(fileName):
             writer.write(score)
 
 
+def save_tic_tac_toe(score):
+    print("X")
+    save_game("Tic Tac Toe", f"X {score[0]}")
+    print("O")
+    save_game("Tic Tac Toe", f"O {score[1]}")
+
+
 def playAgain(game, score):
     print("Would you like to play again? [y/n]")
     if getAns(input(), ['y', 'n']) == 'n':
-        save_game(game, score)
+        if game == "Tic Tac Toe":
+            save_tic_tac_toe(score)
+        else:
+            save_game(game, score)
         sys.exit(0)
 
 
