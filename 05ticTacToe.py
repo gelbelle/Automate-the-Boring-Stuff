@@ -14,7 +14,9 @@ def print_board(board):
 
 
 def get_move(player, board):
-    keys = list(board.keys())
+    # Only display options that are available for play
+    keys = [key for key in board.keys() if board[key] == " "]
+
     square = utils.create_options(
         "Please select which spot you would like to play in", keys)
     print("You have chosen your location")
@@ -29,14 +31,42 @@ def get_next_player(current):
 
 # TODO check if length is three for any of the potential lines
 def check_win(board):
-    players = ["X", "O"]
+    # players = ["X", "O"]
     plays = set()
     for [key, val] in board.items():
         if val != " ":
             plays.add(key)
 
-    lines = []
-    lines.append((play for play in plays if "top" in play))
+    """ lines = []
+    top = []
+    mid = []
+    low = []
+    left = []
+    middle = []
+    right = []
+
+    for play in plays:
+        if "top" in play:
+            top.append(play)
+        elif "mid" in play:
+            mid.append(play)
+        elif "low" in play:
+            low.append(play)
+        if "L" in play:
+            left.append(play)
+        if "R" in play:
+            right.append(play)
+        if "M" in play:
+            middle.append(play)
+
+    lines.append([top, mid, low, left, middle, right])
+
+    for line in lines:
+        for row in line:
+            if len(row) == 3:
+                return True """
+
+    """ lines.append((play for play in plays if "top" in play))
     lines.append((play for play in plays if "mid" in play))
     lines.append((play for play in plays if "low" in play))
 
@@ -44,14 +74,17 @@ def check_win(board):
     lines.append((play for play in plays if "M" in play))
     lines.append((play for play in plays if "R" in play))
 
-    checked = any(len(line) == 3 for line in lines)
-    for line in lines:
-        print(line)
+    checked = any(line for line in lines if len(line) == 3) """
+    """  for line in lines:
+        print(line)  """
 
-    print(checked)
+    # print(checked)
 
-    # lines = [["top-L", "top-M", "top-R"], ["mid-L", "mid-M", "mid-R"], ["low-L", "low-M", "low-R"], ]
-    if board['top-L'] in players and board['top-L'] == ['top-M'] == board['top-R']:
+    lines = [["top-L", "top-M", "top-R"], ["mid-L", "mid-M", "mid-R"], ["low-L", "low-M", "low-R"],
+             ["top-L", "mid-L", "low-L"], ["top-M", "mid-M",
+                                           "low-M"], ["top-R", "mid-R", "low-R"],
+             ["top-L", "mid-M", "low-R"], ["top-R", "mid-M", "low-L"]]
+    """if board['top-L'] in players and board['top-L'] == ['top-M'] == board['top-R']:
         return True
     if board['mid-L'] in players and board['mid-L'] == board['mid-M'] == board['mid-R']:
         return True
@@ -66,7 +99,11 @@ def check_win(board):
     if board['top-L'] in players and board['top-L'] == board['mid-M'] == board['low-R']:
         return True
     if board['top-R'] in players and board['top-R'] == board['mid-M'] == board['low-L']:
-        return True
+        return True """
+
+    for line in lines:
+        if all(check in plays for check in line):
+            return True
     return False
 
 
@@ -95,9 +132,23 @@ def play_game(board):
         plays += 1
         if check_win(new_board):
             print(f"Congratulations {current_player}! You won!")
-            break
+            return current_player
         current_player = get_next_player(current_player)
         print(f"\n**************\nYour turn {current_player}")
+
+
+def update_score(winner, Xs, Os):
+    if winner == "X":
+        Xs["wins"] += 1
+        Os["losses"] += 1
+    elif winner == "O":
+        Os["wins"] += 1
+        Xs["losses"] += 1
+    else:
+        Xs["ties"] += 1
+        Os["ties"] += 1
+
+    return [Xs, Os]
 
 
 def main():
@@ -107,8 +158,26 @@ def main():
              'mid-L': ' ', 'mid-M': ' ', 'mid-R': ' ',
              'low-L': ' ', 'low-M': ' ', 'low-R': ' '}
     print_board(board)
+    Xs = {
+        "wins": 0,
+        "losses": 0,
+        "ties": 0
+    }
+    Os = {
+        "wins": 0,
+        "losses": 0,
+        "ties": 0
+    }
 
-    play_game(board)
+    while True:
+        winner = play_game(board)
+        new_score = update_score(winner, Xs, Os)
+        Xs = new_score[0]
+        Os = new_score[0]
+
+        utils.playAgain("Tic Tac Toe", [Xs, Os])
+        # utils.playAgain("Tic Tac Toe", [
+        # Xs["wins"], Xs["losses"], Xs["ties"], Os["wins"], Os["losses"],  Os["ties"]])
 
 
 if __name__ == "__main__":
