@@ -1,25 +1,18 @@
 class Items:
-    def __init__(self, name, durability):
+    def __init__(self, name, is_magical, durability):
         self.name = name
+        self.is_magical = is_magical
         self.durability = durability
-
-    @property
-    def name(self):
-        return self._name
-
-    @property
-    def is_magical(self):
-        self.is_magical = False
 
     @property
     def durability(self):
         return self._durability
 
     @durability.setter
-    def set_durability(self, value):
+    def durability(self, value):
         if not isinstance(value, int | float) or value < 0:
             raise ValueError("Positive number expected")
-        self.durability = value
+        self._durability = value
 
     @classmethod
     def repair(self, repair_amount):
@@ -51,3 +44,12 @@ class Armour(Items):
 
     def defend(self):
         return self.defense_amount
+
+
+class Treasure(Items):
+    def __init__(self, name, is_magical, value):
+        super().__init__(name, is_magical, 100)
+        self.value = value
+
+        def spend(self):
+            return -self.value
