@@ -17,22 +17,6 @@ def add_to_inventory(items, inventory):
     return inventory
 
 
-def create_item(item_name):
-    match item_name:
-        case "dagger":
-            return gameItems.Weapon("Basic Dagger", "False", 30, 5, "Piercing")
-        case "armour":
-            return gameItems.Armour("Armour", False, 50, 30)
-        case "arrow":
-            return gameItems.Weapon("Basic Arrow", False, 5, 2, "Piercing")
-        case "torch":
-            return gameItems.Items("Basic Torch", False, 10)
-        case "gold coin":
-            return gameItems.Treasure("Gold Coin", False, 1)
-        case "gem":
-            return gameItems.Treasure("Gem", False, 100)
-
-
 def main():
     inventory = {"rope": 1, "torch": 6,
                  "gold coin": 42, "dagger": 1, "arrow": 12}
