@@ -1,3 +1,19 @@
+def create_item(item_name):
+    match item_name:
+        case "dagger":
+            return Weapon("Basic Dagger", "False", 30, 5, "Piercing")
+        case "armour":
+            return Armour("Armour", False, 50, 30)
+        case "arrow":
+            return Weapon("Basic Arrow", False, 5, 2, "Piercing")
+        case "torch":
+            return Items("Basic Torch", False, 10)
+        case "gold coin":
+            return Treasure("Gold Coin", False, 1)
+        case "gem":
+            return Treasure("Gem", False, 100)
+
+
 class Items:
     def __init__(self, name, is_magical, durability):
         self.name = name
