@@ -1,5 +1,4 @@
 import chessUtils
-import operator
 
 
 def check_num_pieces(pieces):
@@ -33,20 +32,29 @@ def check_num_pieces(pieces):
                 print(f"You have too many {key}s")
                 return False
 
-    return len(white) <= 16 and len(black) <= 16
+    return True
 
 
-def main():
-    board = {'1h': 'bking', '6c': 'wqueen',
-             '2g': 'bbishop', '5h': 'bqueen', '3e': 'wking'}
+def valid_board(board):
     for key in board.keys():
         if not chessUtils.validate_square(key):
             print(f"{key} is not a valid square")
             return False
 
-    if not check_num_pieces(list(board.values())):
-        print("There are too many pieces on the board")
-        return False
+        if not check_num_pieces(list(board.values())):
+            print("There are too many pieces on the board")
+            return False
+    return True
+
+
+def main():
+    board = {'1h': 'bking', '6c': 'wqueen',
+             '2g': 'bbishop', '5h': 'bqueen', '3e': 'wking'}
+
+    if valid_board(board):
+        print(f"Your board is valid")
+    else:
+        print("Your board is invalid")
 
 
 if __name__ == "__main__":
