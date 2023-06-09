@@ -1,13 +1,4 @@
-def validate_col(col):
-    return col >= 'a' and col <= 'h'
-
-
-def validate_row(row):
-    return row > 0 and row < 9
-
-
-def validate_square(square):
-    return validate_row(int(square[0])) and validate_col(square[1])
+import chessUtils
 
 
 def validate_color(color):
@@ -19,7 +10,7 @@ def validate_piece(piece):
 
 
 def valid_move(square, piece):
-    valid_square = validate_square(square)
+    valid_square = chessUtils.validate_square(square)
     valid_color = validate_color(piece[1])
     valid_piece = validate_piece(piece[1:])
 
