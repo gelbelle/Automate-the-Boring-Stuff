@@ -25,7 +25,7 @@ def main():
             print(f"I'm sorry, moving {val[1:]} to {key} is not valid.")
             return False
 
-    print("All moves valid")
+    print("All moves valid.")
 
 
 if __name__ == "__main__":

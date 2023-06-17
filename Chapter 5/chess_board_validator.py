@@ -25,11 +25,11 @@ def check_num_pieces(pieces):
     for key, val in valid_pieces.items():
         if white_pieces.get(key):
             if white_pieces[key] > val:
-                print(f"You have too many {key}s")
+                print(f"You have too many {key}s.")
                 return False
         if black_pieces.get(key):
             if black_pieces[key] > val:
-                print(f"You have too many {key}s")
+                print(f"You have too many {key}s.")
                 return False
 
     return True
@@ -38,11 +38,11 @@ def check_num_pieces(pieces):
 def valid_board(board):
     for key in board.keys():
         if not chessUtils.validate_square(key):
-            print(f"{key} is not a valid square")
+            print(f"{key} is not a valid square.")
             return False
 
         if not check_num_pieces(list(board.values())):
-            print("There are too many pieces on the board")
+            print("There are too many pieces on the board.")
             return False
     return True
 
