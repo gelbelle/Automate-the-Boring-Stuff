@@ -101,3 +101,13 @@ def read_files(dir_name):
             idx = entry.name.index(".")
             files.append(entry.name[:idx])
     return files
+
+
+def get_nested_longest(nested):
+    longest = 0
+    for line in nested:
+        for item in line:
+            if len(item) > longest:
+                longest = len(item)
+
+    return longest
